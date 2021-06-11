@@ -33,30 +33,56 @@ BLUE  = (0  ,0  ,255)
 #____________________SET PARAMETERS____________________
 	# Set FPS
 FPS = 60
+	# Set GRID BLOCK size
+BLOCK_SIZE = 10 #_________Size of the individual square in grid
 	# Set SNAKE colour
-SNAKE_COL = WHITE
+SNAKE_COL  = WHITE
 	# Set SNAKE speed
-SNAKE_VEL = 10
+SNAKE_VEL  = 10
 	# Set GRID colour
-GRID_COL  = BLACK
+GRID_COL   = BLACK
 	# Set GRID size
-GRID_SIZE = 15
+GRID_SIZE  = 15
 	# Set FOOD rate
-FOOD_RATE = 1
+FOOD_RATE  = 1
+	# Set FOOD colour
+FOOD_COL   = GREEN
 	# Set CONTROLS type
-CONTROLS  = 0 #___________Control type 0 = arrows, 1 = WASD
+CONTROLS   = 0 #___________Control type 0 = arrows, 1 = WASD
 	
 
-pygame.init()
+
 
 class Snake:
-	def _init__(self, grid_size = 15, snake_speed = 10, food_rate = 1, controls_type = 0):
-		self.grid_size = grid_size
-		self.snake_speed = snake_speed
-		self.food_rate = food_rate
-		self.controls_type = controls_type
-	
 
+	grid = []
+
+		# Initializing all the parameters as default so class doesn't need to have arguments when called
+	def __init__(self, grid_size = GRID_SIZE, snake_speed = SNAKE_VEL, food_rate = FOOD_RATE, \
+			 	controls_type = CONTROLS, fps = FPS, snake_colour = SNAKE_COL, grid_colour = GRID_COL, \
+			 	food_colour = FOOD_COL, block_size = BLOCK_SIZE):
+
+		self.grid_size     = grid_size
+		self.snake_speed   = snake_speed
+		self.food_rate     = food_rate
+		self.controls_type = controls_type
+		self.fps           = fps
+		self.snake_colour  = snake_colour
+		self.grid_colour   = grid_colour
+		self.food_colour   = food_colour
+
+		# Creating nested lists filled with values 0(inactive) and one 1(active)
+		# Value 1 represents the starting point in grid for player
+	def create_grid(self):
+		for i in range(self.grid_size):
+			sub_grid = []
+			for j in range(self.grid_size):
+				sub_grid.append(0)
+
+			self.grid.append(sub_grid)
+			# Set value 1 in the middle of the middle of grid
+		self.grid[self.grid_size//2][self.grid_size//2] = 1
+	
 	
 
 
