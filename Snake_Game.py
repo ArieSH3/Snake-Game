@@ -20,6 +20,7 @@
 
 
 import pygame
+import sys
 
 
 
@@ -34,7 +35,7 @@ BLUE  = (0  ,0  ,255)
 	# Set FPS
 FPS = 60
 	# Set GRID BLOCK size
-BLOCK_SIZE = 10 #_________Size of the individual square in grid
+BLOCK_SIZE = 60 #_________Size of the individual square in grid
 	# Set SNAKE colour
 SNAKE_COL  = WHITE
 	# Set SNAKE speed
@@ -70,6 +71,7 @@ class Snake:
 		self.snake_colour  = snake_colour
 		self.grid_colour   = grid_colour
 		self.food_colour   = food_colour
+		self.block_size    = block_size
 
 		# Creating nested lists filled with values 0(inactive) and one 1(active)
 		# Value 1 represents the starting point in grid for player
@@ -83,9 +85,41 @@ class Snake:
 			# Set value 1 in the middle of the middle of grid
 		self.grid[self.grid_size//2][self.grid_size//2] = 1
 	
-	
+		# Drawing a grid in pygame
+	def draw_grid(self):
+		self.create_grid()
+
+		WIN_SIZE = self.grid_size * self.block_size  
+
+		pygame.init()
+		screen = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
+		screen.fill(self.grid_colour)
+
+		clock = pygame.time.Clock()
+
+		while True:
+			clock.tick(self.fps)
+			
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					pygame.quit()
+					sys.exit()
+
+			for row in range(WIN_SIZE):
+				for column in range(WIN_SIZE):
+						# Define rectangle position and size
+					rect = pygame.Rect(column*self.block_size, row*self.block_size, self.block_size, self.block_size)
+						# Check if player/snake located on position
+					if self.grid[row//self.block_size][column//self.block_size] == 1:
+						pygame.draw.rect(screen, self.snake_colour, rect)
+					else:
+						pygame.draw.rect(screen, self.grid_colour, rect)
+
+			pygame.display.update()
 
 
 
+
+print(Snake().draw_grid())
 
 
