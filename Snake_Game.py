@@ -123,6 +123,3 @@ class Snake:
 
 
 Snake().draw_grid()
-
-
-# salazar
