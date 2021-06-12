@@ -33,7 +33,7 @@ BLUE  = (0  ,0  ,255)
 
 #____________________SET PARAMETERS____________________
 	# Set FPS
-FPS = 60
+FPS = 5
 	# Set GRID BLOCK size
 BLOCK_SIZE = 50 # 60 #_________Size of the individual square in grid
 	# Set SNAKE colour
@@ -63,8 +63,15 @@ clock = pygame.time.Clock()
 
 
 class Snake:
-
+		# Grid that keeps positions of all elements in game
 	grid = []
+		# Snake controls
+	turn_left  = False
+	turn_right = False
+	turn_up    = False
+	turn_down  = False
+		# Tracks for the last key pressed
+	last_key_pressed = None
 
 		# Initializing all the parameters as default so class doesn't need to have arguments when called
 	def __init__(self, grid_size = GRID_SIZE, snake_speed = SNAKE_VEL, food_rate = FOOD_RATE, \
@@ -95,35 +102,99 @@ class Snake:
 	
 		# Drawing a grid in pygame
 	def draw_grid(self):
-		self.create_grid()
+		#self.create_grid()
 
 			#__________________DRAW GRID LOOP_____________________
-		while True:
-			clock.tick(self.fps)
-			
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					pygame.quit()
-					sys.exit()
+		clock.tick(self.fps)
+		
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
 
-			# Dont loop through every pixel but loop through grid and if element is active(1) then
-			# draw rectangle on location grid(element location) * block_size
-			#				I Think It Should Work...
+		# Dont loop through every pixel but loop through grid and if element is active(1) then
+		# draw rectangle on location grid(element location) * block_size
+		#				I Think It Should Work...
+		for row in range(self.grid_size):
+			for column in range(self.grid_size):
+					# Define rectangle position and size
+				rect = pygame.Rect(column*self.block_size, row*self.block_size, self.block_size, self.block_size)
+					# Check if player/snake located on position
+				if self.grid[row][column] == 1:
+					pygame.draw.rect(screen, self.snake_colour, rect)
+				else:
+					pygame.draw.rect(screen, self.grid_colour, rect)
+
+
+		pygame.display.update()
+
+
+	def player_commands(self):
+		key = pygame.key.get_pressed()
+			# Arrow controls
+		if self.controls_type == 0:
+			if key[pygame.K_LEFT] and self.last_key_pressed != 'r':
+				self.turn_left  = True
+				self.turn_right = False
+				self.turn_up    = False
+				self.turn_down  = False
+				self.last_key_pressed = 'l'
+			if key[pygame.K_RIGHT] and self.last_key_pressed != 'l':
+				self.turn_right = True
+				self.turn_left  = False
+				self.turn_up    = False
+				self.turn_down  = False
+				self.last_key_pressed = 'r'
+			if key[pygame.K_UP] and self.last_key_pressed != 'd':
+				self.turn_up    = True
+				self.turn_left  = False
+				self.turn_right = False
+				self.turn_down  = False
+				self.last_key_pressed = 'u'
+			if key[pygame.K_DOWN] and self.last_key_pressed != 'u':
+				self.turn_down  = True
+				self.turn_left  = False
+				self.turn_right = False
+				self.turn_up    = False
+				self.last_key_pressed = 'd'
+
+
 			for row in range(self.grid_size):
 				for column in range(self.grid_size):
-						# Define rectangle position and size
-					rect = pygame.Rect(column*self.block_size, row*self.block_size, self.block_size, self.block_size)
-						# Check if player/snake located on position
 					if self.grid[row][column] == 1:
-						pygame.draw.rect(screen, self.snake_colour, rect)
-					else:
-						pygame.draw.rect(screen, self.grid_colour, rect)
+						if self.turn_left:
+							self.grid[row][column]   = 0
+							self.grid[row][column-1] = 1
+						if self.turn_right:
+							self.grid[row][column]   = 0
+							self.grid[row][column+1] = 1
+						if self.turn_up:
+							self.grid[row][column]   = 0
+							self.grid[row-1][column] = 1
+						if self.turn_down:
+							self.grid[row][column]   = 0
+							self.grid[row+1][column] = 1
 
 
-			pygame.display.update()
+
+			# WASD controls
+		elif self.controls_type == 1:
+			# Implement WASD controls later
+			pass
+			# Error message
+		else:
+			print('Error: Chosen unavailable command input. Choose 0 (arrows), 1(wasd)')
+			pygame.QUIT()
+
+
+	def run_game(self):
+		self.create_grid()
+
+		while True:
+			self.draw_grid()
+			self.player_commands()
 
 
 
-
-Snake().draw_grid()
-# temp_develop
+#Snake().draw_grid()
+Snake().run_game()
