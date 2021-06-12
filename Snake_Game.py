@@ -89,7 +89,7 @@ class Snake:
 	def draw_grid(self):
 		self.create_grid()
 
-		WIN_SIZE = self.grid_size * self.block_size  
+		WIN_SIZE = self.grid_size * self.block_size
 
 		pygame.init()
 		screen = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
@@ -97,6 +97,7 @@ class Snake:
 
 		clock = pygame.time.Clock()
 
+			#__________________DRAW GRID LOOP_____________________
 		while True:
 			clock.tick(self.fps)
 			
@@ -108,18 +109,19 @@ class Snake:
 			for row in range(WIN_SIZE):
 				for column in range(WIN_SIZE):
 						# Define rectangle position and size
-					rect = pygame.Rect(column*self.block_size, row*self.block_size, self.block_size, self.block_size)
+					rect = pygame.Rect(column, row, self.block_size, self.block_size)
 						# Check if player/snake located on position
 					if self.grid[row//self.block_size][column//self.block_size] == 1:
 						pygame.draw.rect(screen, self.snake_colour, rect)
 					else:
 						pygame.draw.rect(screen, self.grid_colour, rect)
 
+
 			pygame.display.update()
 
 
 
 
-print(Snake().draw_grid())
+Snake().draw_grid()
 
 
