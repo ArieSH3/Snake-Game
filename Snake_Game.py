@@ -35,7 +35,7 @@ BLUE  = (0  ,0  ,255)
 	# Set FPS
 FPS = 60
 	# Set GRID BLOCK size
-BLOCK_SIZE = 60 #_________Size of the individual square in grid
+BLOCK_SIZE = 50 # 60 #_________Size of the individual square in grid
 	# Set SNAKE colour
 SNAKE_COL  = WHITE
 	# Set SNAKE speed
@@ -43,7 +43,7 @@ SNAKE_VEL  = 10
 	# Set GRID colour
 GRID_COL   = BLACK
 	# Set GRID size
-GRID_SIZE  = 15
+GRID_SIZE  = 20 # 15
 	# Set FOOD rate
 FOOD_RATE  = 1
 	# Set FOOD colour
@@ -109,12 +109,12 @@ class Snake:
 			# Dont loop through every pixel but loop through grid and if element is active(1) then
 			# draw rectangle on location grid(element location) * block_size
 			#				I Think It Should Work...
-			for row in range(WIN_SIZE):
-				for column in range(WIN_SIZE):
+			for row in range(self.grid_size):
+				for column in range(self.grid_size):
 						# Define rectangle position and size
-					rect = pygame.Rect(column, row, self.block_size, self.block_size)
+					rect = pygame.Rect(column*self.block_size, row*self.block_size, self.block_size, self.block_size)
 						# Check if player/snake located on position
-					if self.grid[row//self.block_size][column//self.block_size] == 1:
+					if self.grid[row][column] == 1:
 						pygame.draw.rect(screen, self.snake_colour, rect)
 					else:
 						pygame.draw.rect(screen, self.grid_colour, rect)
