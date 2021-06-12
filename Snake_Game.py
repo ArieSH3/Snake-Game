@@ -21,6 +21,7 @@
 
 import pygame
 import sys
+import time
 
 
 
@@ -73,6 +74,7 @@ class Snake:
 		self.food_colour   = food_colour
 		self.block_size    = block_size
 
+
 		# Creating nested lists filled with values 0(inactive) and one 1(active)
 		# Value 1 represents the starting point in grid for player
 	def create_grid(self):
@@ -84,6 +86,7 @@ class Snake:
 			self.grid.append(sub_grid)
 			# Set value 1 in the middle of the middle of grid
 		self.grid[self.grid_size//2][self.grid_size//2] = 1
+
 	
 		# Drawing a grid in pygame
 	def draw_grid(self):
@@ -96,16 +99,15 @@ class Snake:
 		screen.fill(self.grid_colour)
 
 		clock = pygame.time.Clock()
-
 			#__________________DRAW GRID LOOP_____________________
 		while True:
 			clock.tick(self.fps)
-			
+
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					pygame.quit()
 					sys.exit()
-
+			time_init = time.time() ############################
 			for row in range(WIN_SIZE):
 				for column in range(WIN_SIZE):
 						# Define rectangle position and size
@@ -115,6 +117,8 @@ class Snake:
 						pygame.draw.rect(screen, self.snake_colour, rect)
 					else:
 						pygame.draw.rect(screen, self.grid_colour, rect)
+				func_time = time.time() #################################
+				print(func_time-time_init)
 
 
 			pygame.display.update()
