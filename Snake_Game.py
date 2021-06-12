@@ -50,8 +50,16 @@ FOOD_RATE  = 1
 FOOD_COL   = GREEN
 	# Set CONTROLS type
 CONTROLS   = 0 #___________Control type 0 = arrows, 1 = WASD
+
+	# Set WINDOW size (Not yet optimized to be changed by user)
+WIN_SIZE = GRID_SIZE * BLOCK_SIZE
 	
 
+
+pygame.init()
+screen = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
+
+clock = pygame.time.Clock()
 
 
 class Snake:
@@ -88,14 +96,6 @@ class Snake:
 		# Drawing a grid in pygame
 	def draw_grid(self):
 		self.create_grid()
-
-		WIN_SIZE = self.grid_size * self.block_size
-
-		pygame.init()
-		screen = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
-		screen.fill(self.grid_colour)
-
-		clock = pygame.time.Clock()
 
 			#__________________DRAW GRID LOOP_____________________
 		while True:
