@@ -106,6 +106,9 @@ class Snake:
 					pygame.quit()
 					sys.exit()
 
+			# Dont loop through every pixel but loop through grid and if element is active(1) then
+			# draw rectangle on location grid(element location) * block_size
+			#				I Think It Should Work...
 			for row in range(WIN_SIZE):
 				for column in range(WIN_SIZE):
 						# Define rectangle position and size
