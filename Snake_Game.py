@@ -23,11 +23,12 @@ import sys
 
 
 # Define COLOURS
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-GREEN = (0, 255, 0)
-RED   = (255, 0, 0)
-BLUE  = (0, 0, 255)
+WHITE = (255,255,255)
+BLACK = (0  ,0  ,0  )
+GREY  = (53 ,50 ,50 )
+GREEN = (0  ,255,0  )
+RED   = (255,0  ,0  )
+BLUE  = (0  ,0  ,255)
 
 # ____________________SET PARAMETERS____________________
 # Set FPS
@@ -38,8 +39,10 @@ BLOCK_SIZE = 50  # 60 #_________Size of the individual square in grid
 SNAKE_COL = WHITE
 # Set SNAKE speed
 SNAKE_VEL = 10
-# Set GRID colour
-GRID_COL = BLACK
+# Set GRID_1 colour
+GRID_COL_1 = BLACK
+# Set GRID_2 colour
+GRID_COL_2 = GREY
 # Set GRID size
 GRID_SIZE = 20  # 15
 # Set FOOD rate
@@ -61,38 +64,60 @@ clock = pygame.time.Clock()
 
 class Snake:
 
-    grid = []
+	# Initializing all the parameters as default so class doesn't need to have arguments when called
+	def __init__(
+		self,
+		grid_size=GRID_SIZE,
+		snake_speed=SNAKE_VEL,
+		food_rate=FOOD_RATE,
+		controls_type=CONTROLS,
+		fps=FPS,
+		snake_colour=SNAKE_COL,
+		grid_colour_1=GRID_COL_1,
+		grid_colour_2=GRID_COL_2,
+		food_colour=FOOD_COL,
+		block_size=BLOCK_SIZE,
+		#game_display = (480, 480)
+	):
 
-    # Initializing all the parameters as default so class doesn't need to have arguments when called
-    def __init__(
-        self,
-        grid_size=GRID_SIZE,
-        snake_speed=SNAKE_VEL,
-        food_rate=FOOD_RATE,
-        controls_type=CONTROLS,
-        fps=FPS,
-        snake_colour=SNAKE_COL,
-        grid_colour=GRID_COL,
-        food_colour=FOOD_COL,
-        block_size=BLOCK_SIZE,
-        game_display = (480, 480)
-    ):
-
-        self.grid_size = grid_size
-        self.snake_speed = snake_speed
-        self.food_rate = food_rate
-        self.controls_type = controls_type
-        self.fps = fps
-        self.snake_colour = snake_colour
-        self.grid_colour = grid_colour
-        self.food_colour = food_colour
-        self.block_size = block_size
-        self.screen = pygame.display.set_mode()
-        self.game_display = game_display
-
-    
+		self.grid_size = grid_size
+		self.snake_speed = snake_speed
+		self.food_rate = food_rate
+		self.controls_type = controls_type
+		self.fps = fps
+		self.snake_colour = snake_colour
+		self.grid_colour = grid_colour
+		self.food_colour = food_colour
+		self.block_size = block_size
+			# Size of the game window
+		#self.screen = pygame.display.set_mode()
+			# Size of the playable area
+		#self.game_display = game_display
 
 
-        # Drawing a grid in pygame
+	def move_head(self):
+		pass
+
+	def move_snake(self):
+		pass
+
+		# Drawing a grid in pygame
 	def draw_grid(self):
-        pass
+		for y in range(self.grid_size):
+			for x in range(self.grid_size):
+				rect = pygame.Rect((x*self.block_size, y*self.block_size), (block_size, block_size))
+				if (i+j)%2 == 0:
+					pygame.draw.rect(screen, self.grid_colour_1, rect)
+				else:
+					pygame.draw.rect(screen, self.grid_colour_2, rect)
+
+	def draw_snake():
+		pass
+
+
+
+def main():
+	while True:
+		Snake().draw_grid()
+
+		pygame.display.update()
