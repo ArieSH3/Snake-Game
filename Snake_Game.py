@@ -1,6 +1,6 @@
-'''								Grid Based Snake Game 													'''
+"""								Grid Based Snake Game 													"""
 
-'''	
+"""	
 	TODO:
 		-Create nested lists to form a grid and put a starting position in it
 		-Create pygame window to represent that grid graphically with the snake (Black and White)
@@ -15,45 +15,42 @@
 		-Add the ability to choose size of map
 		-Ability to choose snake speed
 		-Ability to choose amount of food that can exist at one time on the map
-'''
-
+"""
 
 
 import pygame
 import sys
 
 
+# Define COLOURS
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
+RED   = (255, 0, 0)
+BLUE  = (0, 0, 255)
 
-	# Define COLOURS
-WHITE = (255,255,255)
-BLACK = (0  ,0  ,0  )
-GREEN = (0  ,255,0  )
-RED   = (255,0  ,0  )
-BLUE  = (0  ,0  ,255)
-
-#____________________SET PARAMETERS____________________
-	# Set FPS
+# ____________________SET PARAMETERS____________________
+# Set FPS
 FPS = 60
-	# Set GRID BLOCK size
-BLOCK_SIZE = 50 # 60 #_________Size of the individual square in grid
-	# Set SNAKE colour
-SNAKE_COL  = WHITE
-	# Set SNAKE speed
-SNAKE_VEL  = 10
-	# Set GRID colour
-GRID_COL   = BLACK
-	# Set GRID size
-GRID_SIZE  = 20 # 15
-	# Set FOOD rate
-FOOD_RATE  = 1
-	# Set FOOD colour
-FOOD_COL   = GREEN
-	# Set CONTROLS type
-CONTROLS   = 0 #___________Control type 0 = arrows, 1 = WASD
+# Set GRID BLOCK size
+BLOCK_SIZE = 50  # 60 #_________Size of the individual square in grid
+# Set SNAKE colour
+SNAKE_COL = WHITE
+# Set SNAKE speed
+SNAKE_VEL = 10
+# Set GRID colour
+GRID_COL = BLACK
+# Set GRID size
+GRID_SIZE = 20  # 15
+# Set FOOD rate
+FOOD_RATE = 1
+# Set FOOD colour
+FOOD_COL = GREEN
+# Set CONTROLS type
+CONTROLS = 0  # ___________Control type 0 = arrows, 1 = WASD
 
-	# Set WINDOW size (Not yet optimized to be changed by user)
+# Set WINDOW size (Not yet optimized to be changed by user)
 WIN_SIZE = GRID_SIZE * BLOCK_SIZE
-	
 
 
 pygame.init()
@@ -64,65 +61,38 @@ clock = pygame.time.Clock()
 
 class Snake:
 
-	grid = []
+    grid = []
 
-		# Initializing all the parameters as default so class doesn't need to have arguments when called
-	def __init__(self, grid_size = GRID_SIZE, snake_speed = SNAKE_VEL, food_rate = FOOD_RATE, \
-			 	controls_type = CONTROLS, fps = FPS, snake_colour = SNAKE_COL, grid_colour = GRID_COL, \
-			 	food_colour = FOOD_COL, block_size = BLOCK_SIZE):
+    # Initializing all the parameters as default so class doesn't need to have arguments when called
+    def __init__(
+        self,
+        grid_size=GRID_SIZE,
+        snake_speed=SNAKE_VEL,
+        food_rate=FOOD_RATE,
+        controls_type=CONTROLS,
+        fps=FPS,
+        snake_colour=SNAKE_COL,
+        grid_colour=GRID_COL,
+        food_colour=FOOD_COL,
+        block_size=BLOCK_SIZE,
+        game_display = (480, 480)
+    ):
 
-		self.grid_size     = grid_size
-		self.snake_speed   = snake_speed
-		self.food_rate     = food_rate
-		self.controls_type = controls_type
-		self.fps           = fps
-		self.snake_colour  = snake_colour
-		self.grid_colour   = grid_colour
-		self.food_colour   = food_colour
-		self.block_size    = block_size
+        self.grid_size = grid_size
+        self.snake_speed = snake_speed
+        self.food_rate = food_rate
+        self.controls_type = controls_type
+        self.fps = fps
+        self.snake_colour = snake_colour
+        self.grid_colour = grid_colour
+        self.food_colour = food_colour
+        self.block_size = block_size
+        self.screen = pygame.display.set_mode()
+        self.game_display = game_display
 
-		# Creating nested lists filled with values 0(inactive) and one 1(active)
-		# Value 1 represents the starting point in grid for player
-	def create_grid(self):
-		for i in range(self.grid_size):
-			sub_grid = []
-			for j in range(self.grid_size):
-				sub_grid.append(0)
+    
 
-			self.grid.append(sub_grid)
-			# Set value 1 in the middle of the middle of grid
-		self.grid[self.grid_size//2][self.grid_size//2] = 1
-	
-		# Drawing a grid in pygame
+
+        # Drawing a grid in pygame
 	def draw_grid(self):
-		self.create_grid()
-
-			#__________________DRAW GRID LOOP_____________________
-		while True:
-			clock.tick(self.fps)
-			
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					pygame.quit()
-					sys.exit()
-
-			# Dont loop through every pixel but loop through grid and if element is active(1) then
-			# draw rectangle on location grid(element location) * block_size
-			#				I Think It Should Work...
-			for row in range(self.grid_size):
-				for column in range(self.grid_size):
-						# Define rectangle position and size
-					rect = pygame.Rect(column*self.block_size, row*self.block_size, self.block_size, self.block_size)
-						# Check if player/snake located on position
-					if self.grid[row][column] == 1:
-						pygame.draw.rect(screen, self.snake_colour, rect)
-					else:
-						pygame.draw.rect(screen, self.grid_colour, rect)
-
-
-			pygame.display.update()
-
-
-
-
-Snake().draw_grid()
+        pass
