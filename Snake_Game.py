@@ -24,20 +24,23 @@ import random
 
 
 # Define COLOURS
-WHITE = (255,255,255)
-BLACK = (0  ,0  ,0  )
-GREY  = (15 ,15 ,15 )
-GREEN = (0  ,255,0  )
-RED   = (255,0  ,0  )
-BLUE  = (0  ,0  ,255)
+WHITE    = (255,255,255)
+BLACK    = (0  ,0  ,0  )
+GREY     = (15 ,15 ,15 )
+GREEN    = (0  ,255,0  )
+RED      = (255,0  ,0  )
+BLUE     = (0  ,0  ,255)
+TURQOISE = (0  ,230,153)
 
 # ____________________SET PARAMETERS____________________
 # Set FPS
 FPS = 10
 # Set GRID BLOCK size
 BLOCK_SIZE = 50  # 60 #_________Size of the individual square in grid
-# Set SNAKE colour
-SNAKE_COL = WHITE
+# Set SNAKE head colour
+SNAKE_COL_1 = WHITE
+# Set SNAKE body colour
+SNAKE_COL_2 = TURQOISE
 # Set SNAKE speed
 SNAKE_VEL = 10
 # Set GRID_1 colour
@@ -73,7 +76,8 @@ class Snake:
 		food_rate=FOOD_RATE,
 		controls_type=CONTROLS,
 		fps=FPS,
-		snake_colour=SNAKE_COL,
+		snake_colour_1=SNAKE_COL_1,
+		snake_colour_2=SNAKE_COL_2,
 		grid_colour_1=GRID_COL_1,
 		grid_colour_2=GRID_COL_2,
 		food_colour=FOOD_COL,
@@ -86,14 +90,15 @@ class Snake:
 		self.food_rate = food_rate
 		self.controls_type = controls_type
 		self.fps = fps
-		self.snake_colour = snake_colour
+		self.snake_colour_1 = snake_colour_1
+		self.snake_colour_2 = snake_colour_2
 		self.grid_colour_1 = grid_colour_1
 		self.grid_colour_2 = grid_colour_2
 		self.food_colour = food_colour
 		self.block_size = block_size
 
 		self.positions = [((self.grid_size/2),(self.grid_size/2))]
-		self.snake_length = 2
+		self.snake_length = 1
 
 		self.right = 1
 		self.left  = 2
@@ -108,19 +113,15 @@ class Snake:
 
 
 	def move_head(self):
-		x = self.positions[0][0]
-		y = self.positions[0][1]
-
 		if self.direction == self.right:
-			x += self.block_size
+			self.positions[0][0] += 1
 		elif self.direction == self.left:
-			x -= self.block_size
+			self.positions[0][0] -= 1
 		elif self.direction == self.up:
-			y -= self.block_size
+			self.positions[0][1] -= 1
 		elif self.direction == self.down:
-			y += self.block_size
+			self.positions[0][1] += 1
 
-		self.positions.insert(0, (x,y))
 		
 
 	def move_snake(self):
@@ -140,7 +141,7 @@ class Snake:
 	def draw_snake(self):
 		for pos in self.positions:
 			rect = pygame.Rect((pos[0]*self.block_size, pos[1]*self.block_size), (self.block_size, self.block_size))
-			pygame.draw.rect(screen, self.snake_colour, rect)
+			pygame.draw.rect(screen, self.snake_colour_2, rect)
 
 	def handle_keys(self):
 		for event in pygame.event.get():
@@ -151,12 +152,19 @@ class Snake:
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_RIGHT and self.direction != self.left:
 					self.direction = self.right
+					print('right')
 				if event.key == pygame.K_LEFT and self.direction != self.right:
 					self.direction = self.left
+					print('left')
 				if event.key == pygame.K_UP and self.direction != self.down:
 					self.direction = self.up
+					print('up')
 				if event.key == pygame.K_DOWN and self.direction != self.up:
 					self.direction = self.down
+					print('down')
+
+	def play(self):
+		pass
 
 
 
@@ -165,10 +173,10 @@ def main():
 	snake = Snake()
 	
 	while True:
+		clock.tick(FPS) 
 		snake.draw_grid()
-		snake.draw_snake()
 		snake.handle_keys()
-		snake.move_head()
+		snake.draw_snake()
 
 		pygame.display.update()
 
