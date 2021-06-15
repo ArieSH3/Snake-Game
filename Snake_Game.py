@@ -32,10 +32,11 @@ GREEN    = (0  ,255,0  )
 RED      = (255,0  ,0  )
 BLUE     = (0  ,0  ,255)
 TURQOISE = (0  ,230,153)
+ORANGE   = (226,152,  4)
 
 # ____________________SET PARAMETERS____________________
 # Set FPS
-FPS = 5
+FPS = 10
 # Set GRID BLOCK size
 BLOCK_SIZE = 50  # 60 #_________Size of the individual square in grid
 # Set SNAKE head colour
@@ -53,7 +54,7 @@ GRID_SIZE = 20  # 15
 # Set FOOD rate
 FOOD_RATE = 1
 # Set FOOD colour
-FOOD_COL = RED
+FOOD_COL = ORANGE
 # Set CONTROLS type
 CONTROLS = 0  # ___________Control type 0 = arrows, 1 = WASD
 
@@ -135,10 +136,7 @@ class Snake:
 			self.positions.pop()
 
 			# Check if food in same spot as snake head
-		print('Food: ', self.food)
-		print('HeadL ', self.positions[0])
 		if self.food == self.positions[0]:
-			print('FOOD')
 			self.score += 1
 			self.snake_length += 1
 			self.place_food()
@@ -210,7 +208,7 @@ class Snake:
 		self.food = (x,y)
 		# If food position in snake position then call again for another random position
 		if self.food in self.positions:
-			place_food()
+			self.place_food()
 
 def main():
 	snake = Snake()
