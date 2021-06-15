@@ -43,8 +43,6 @@ BLOCK_SIZE = 50  # 60 #_________Size of the individual square in grid
 SNAKE_COL_1 = WHITE
 # Set SNAKE body colour
 SNAKE_COL_2 = TURQOISE
-# Set SNAKE speed
-SNAKE_VEL = 10
 # Set GRID_1 colour
 GRID_COL_1 = BLACK
 # Set GRID_2 colour
@@ -52,7 +50,7 @@ GRID_COL_2 = GREY
 # Set GRID size
 GRID_SIZE = 20  # 15
 # Set FOOD rate
-FOOD_RATE = 1
+#FOOD_RATE = 1 		################# NOT USED YET (Supposed to determine how many food elements on grid at one time)
 # Set FOOD colour
 FOOD_COL = ORANGE
 # Set CONTROLS type
@@ -74,8 +72,6 @@ class Snake:
 	def __init__(
 		self,
 		grid_size=GRID_SIZE,
-		snake_speed=SNAKE_VEL,
-		food_rate=FOOD_RATE,
 		controls_type=CONTROLS,
 		fps=FPS,
 		snake_colour_1=SNAKE_COL_1,
@@ -88,8 +84,6 @@ class Snake:
 	):
 
 		self.grid_size = grid_size
-		self.snake_speed = snake_speed
-		self.food_rate = food_rate
 		self.controls_type = controls_type
 		self.fps = fps
 		self.snake_colour_1 = snake_colour_1
