@@ -112,7 +112,7 @@ class Snake:
 		#self.game_display = game_display
 
 
-	def move_head(self):
+	def move_snake(self):
 		new = self.positions[0]
 		
 		if self.direction == self.right:
@@ -128,10 +128,6 @@ class Snake:
 		if len(self.positions) > self.snake_length:
 			self.positions.pop()
 
-		
-
-	def move_snake(self):
-		pass
 
 		# Drawing a grid in pygame
 	def draw_grid(self):
@@ -182,7 +178,7 @@ def main():
 		clock.tick(FPS) 
 		snake.draw_grid()
 		snake.handle_keys()
-		snake.move_head()
+		snake.move_snake()
 		snake.draw_snake()
 
 		pygame.display.update()
