@@ -98,7 +98,7 @@ class Snake:
 		self.block_size = block_size
 
 		self.positions = [((self.grid_size/2),(self.grid_size/2))]
-		self.snake_length = 1
+		self.snake_length = 5
 
 		self.right = 1
 		self.left  = 2
@@ -113,14 +113,20 @@ class Snake:
 
 
 	def move_head(self):
+		new = self.positions[0]
+		
 		if self.direction == self.right:
-			self.positions[0][0] += 1
+			new = (new[0]+1,new[1])
 		elif self.direction == self.left:
-			self.positions[0][0] -= 1
+			new = (new[0]-1,new[1])
 		elif self.direction == self.up:
-			self.positions[0][1] -= 1
+			new = (new[0],new[1]-1)
 		elif self.direction == self.down:
-			self.positions[0][1] += 1
+			new = (new[0],new[1]+1)
+
+		self.positions.insert(0, new)
+		if len(self.positions) > self.snake_length:
+			self.positions.pop()
 
 		
 
@@ -176,6 +182,7 @@ def main():
 		clock.tick(FPS) 
 		snake.draw_grid()
 		snake.handle_keys()
+		snake.move_head()
 		snake.draw_snake()
 
 		pygame.display.update()
