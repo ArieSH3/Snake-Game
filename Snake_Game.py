@@ -25,14 +25,16 @@ import time
 
 
 # Define COLOURS
-WHITE    = (255,255,255)
-BLACK    = (0  ,0  ,0  )
-GREY     = (15 ,15 ,15 )
-GREEN    = (0  ,255,0  )
-RED      = (255,0  ,0  )
-BLUE     = (0  ,0  ,255)
-TURQOISE = (0  ,230,153)
-ORANGE   = (226,152,  4)
+WHITE     = (255,255,255)
+BLACK     = (0  ,0  ,0  )
+GREY      = (15 ,15 ,15 )
+GREEN     = (0  ,255,0  )
+RED       = (255,0  ,0  )
+BLUE      = (0  ,0  ,255)
+TURQUOISE = (0  ,230,153)
+ORANGE    = (226,152,  4)
+DARK_BLUE = (0  ,102,204)
+PINK      = (230,  0, 77)
 
 # ____________________SET PARAMETERS____________________
 # Set FPS
@@ -40,9 +42,9 @@ FPS = 10
 # Set GRID BLOCK size
 BLOCK_SIZE = 50  # 60 #_________Size of the individual square in grid
 # Set SNAKE head colour
-SNAKE_COL_1 = WHITE
+SNAKE_COL_1 = TURQUOISE
 # Set SNAKE body colour
-SNAKE_COL_2 = TURQOISE
+SNAKE_COL_2 = PINK
 # Set GRID_1 colour
 GRID_COL_1 = BLACK
 # Set GRID_2 colour
@@ -147,16 +149,21 @@ class Snake:
 				else:
 					pygame.draw.rect(screen, self.grid_colour_2, rect)
 
-		# Draws snake on grid
+		# Draws snake on grid (Circle segments)
 	def draw_snake(self):
 		for pos in self.positions:
 			rect = pygame.Rect((pos[0]*self.block_size, pos[1]*self.block_size), (self.block_size, self.block_size))
-			pygame.draw.rect(screen, self.snake_colour_2, rect)
+				# Drawing head
+			if pos == self.positions[0]:			
+				pygame.draw.rect(screen, self.snake_colour_1, rect, 4)
+				# Drawing rest of body
+			else:
+				pygame.draw.rect(screen, self.snake_colour_2, rect, 4)
 
 		# Draws food on grid
 	def draw_food(self):
 		rect = pygame.Rect((self.food[0]*self.block_size, self.food[1]*self.block_size), (self.block_size, self.block_size))
-		pygame.draw.rect(screen, self.food_colour, rect)		
+		pygame.draw.rect(screen, self.food_colour, rect, 4)		
 
 		# Handles key inputs
 	def handle_keys(self):
