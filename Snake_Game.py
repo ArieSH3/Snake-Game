@@ -107,7 +107,7 @@ class Snake:
 		#self.game_display = game_display
 
 
-	def move_head(self, direction):
+	def move_head(self):
 		x = self.positions[0][0]
 		y = self.positions[0][1]
 
@@ -119,6 +119,9 @@ class Snake:
 			y -= self.block_size
 		elif self.direction == self.down:
 			y += self.block_size
+
+		self.positions.insert(0, (x,y))
+		
 
 	def move_snake(self):
 		pass
