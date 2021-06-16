@@ -64,6 +64,7 @@ WIN_SIZE = GRID_SIZE * BLOCK_SIZE
 
 pygame.init()
 screen = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
+pygame.display.set_caption('Snake')
 
 clock = pygame.time.Clock()
 
@@ -153,17 +154,18 @@ class Snake:
 	def draw_snake(self):
 		for pos in self.positions:
 			rect = pygame.Rect((pos[0]*self.block_size, pos[1]*self.block_size), (self.block_size, self.block_size))
-				# Drawing head
-			if pos == self.positions[0]:			
-				pygame.draw.rect(screen, self.snake_colour_1, rect, 4)
-				# Drawing rest of body
-			else:
-				pygame.draw.rect(screen, self.snake_colour_2, rect, 4)
+			pygame.draw.rect(screen, self.snake_colour_1, rect)
+			# 	# Drawing head
+			# if pos == self.positions[0]:			
+			# 	pygame.draw.rect(screen, self.snake_colour_1, rect)
+			# 	# Drawing rest of body
+			# else:
+			# 	pygame.draw.rect(screen, self.snake_colour_2, rect)
 
 		# Draws food on grid
 	def draw_food(self):
 		rect = pygame.Rect((self.food[0]*self.block_size, self.food[1]*self.block_size), (self.block_size, self.block_size))
-		pygame.draw.rect(screen, self.food_colour, rect, 4)		
+		pygame.draw.rect(screen, self.food_colour, rect)		
 
 		# Handles key inputs
 	def handle_keys(self):
