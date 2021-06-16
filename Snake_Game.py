@@ -62,6 +62,7 @@ WIN_SIZE = GRID_SIZE * BLOCK_SIZE
 
 pygame.init()
 screen = pygame.display.set_mode((WIN_SIZE, WIN_SIZE))
+pygame.display.set_caption('Snake Game')
 
 clock = pygame.time.Clock()
 
